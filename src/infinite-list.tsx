@@ -5,6 +5,8 @@ import {
   List,
   Index,
   ListRowProps,
+  WindowScroller,
+  AutoSizer,
 } from "react-virtualized";
 
 export function InfiniteList({
@@ -53,25 +55,35 @@ export function InfiniteList({
   };
 
   return (
-    <InfiniteLoader
-      ref={listRef}
-      isRowLoaded={isRowLoaded}
-      rowCount={rowCount}
-      loadMoreRows={loadMoreRows}
-    >
-      {({ onRowsRendered, registerChild }) => (
-        <List
-          className={className}
-          height={150}
-          itemSize={30}
-          onRowsRendered={onRowsRendered}
-          ref={registerChild}
-          rowCount={rowCount}
-          rowHeight={30}
-          rowRenderer={rowRenderer}
-          width={450}
-        />
+    <AutoSizer disableHeight>
+      {({ width }) => (
+        <WindowScroller>
+          {({ height, onChildScroll, scrollTop }) => (
+            <InfiniteLoader
+              ref={listRef}
+              isRowLoaded={isRowLoaded}
+              rowCount={rowCount}
+              loadMoreRows={loadMoreRows}
+            >
+              {({ onRowsRendered, registerChild }) => (
+                <List
+                  autoHeight
+                  className={className}
+                  height={height}
+                  onRowsRendered={onRowsRendered}
+                  ref={registerChild}
+                  rowCount={rowCount}
+                  onScroll={onChildScroll}
+                  rowHeight={42}
+                  scrollTop={scrollTop}
+                  rowRenderer={rowRenderer}
+                  width={width}
+                />
+              )}
+            </InfiniteLoader>
+          )}
+        </WindowScroller>
       )}
-    </InfiniteLoader>
+    </AutoSizer>
   );
 }
