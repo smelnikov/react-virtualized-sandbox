@@ -1,0 +1,23 @@
+#root {
+  max-width: 1280px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.input {
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  line-height: 1.25rem;
+  padding: 0.25rem;
+  margin-block-end: 1rem;
+}
+
+.help-text {
+  color: #ddd;
+  padding-inline-start: 1rem;
+}
+
+.infinite-list {
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+}
